@@ -4,6 +4,7 @@
 
 #include "log.h"
 #include "definitions.h"
+#include "managers/windowManager.h"
 
 
 void Game::start(){
@@ -12,12 +13,23 @@ void Game::start(){
     if(DEBUG){warn << "Game started in debug mode\n";}
     log << " Version: " << VERSION << "\n\n";
 
-    while(false){
+    if (!glfwInit()){
+        err << "Failed to init GLFW\n";
+        exit(-1);
+    }
+    WindowManager::createWindow(1280,720,"Narvos");
+
+    while(!glfwWindowShouldClose(WindowManager::getWindow())){
         update();
         render();
     }
 }
 
-void Game::update(){}
+void Game::update(){
+    glfwPollEvents();
+}
 
-void Game::render(){}
+void Game::render(){
+    glClear(GL_COLOR_BUFFER_BIT);
+    glfwSwapBuffers(WindowManager::getWindow());
+}
