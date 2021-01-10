@@ -12,3 +12,9 @@ include_directories(
 
 add_executable(${EXECUTABLE_NAME} ${NARVOS_SRC})
 
+find_package(glfw3 3.3 REQUIRED)
+target_link_libraries(narvos glfw)
+
+find_package(OpenGL REQUIRED)
+target_link_libraries(narvos OpenGL::GL)
+
