@@ -30,7 +30,7 @@ std::vector<Entity*> Manager::getEntitiesWith(std::string type){
             list.push_back(i);
         }
     }
-    return list
+    return list;
 }
 
 void Manager::addComponent(Entity* targetEntity, Component* component){
@@ -64,6 +64,7 @@ std::vector<Component*> Manager::getComponents(std::string type){
             }
         }
     }
+    return list;
 }
 
 bool Manager::hasComponent(Entity*targetEntity, std::string type){
@@ -106,3 +107,7 @@ int Manager::generateID(){
     m_lastID++;
     return m_lastID-1;
 }
+
+std::vector<Entity*> Manager::m_entities = {};
+std::vector<System*> Manager::m_systems = {};
+int Manager::m_lastID = 0;

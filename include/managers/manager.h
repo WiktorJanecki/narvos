@@ -10,30 +10,30 @@
 
 class Manager{
     public:
-        void addEntity(Entity* entity);
-        void removeEntity(Entity* entity);
-        std::vector<Entity*> getEntitiesWith(std::string type);
+        static void addEntity(Entity* entity);
+        static void removeEntity(Entity* entity);
+        static std::vector<Entity*> getEntitiesWith(std::string type);
 
-        void addComponent(Entity* targetEntity, Component component);
-        void removeComponent(Entity* targetEntity, std::string type);
-        Component* getComponent(Entity* targetEntity, std::string type);
-        std::vector<Component*> getComponents(std::string type);
-        bool hasComponent(Entity* targetEntity, std::string type);
+        static void addComponent(Entity* targetEntity, Component* component);
+        static void removeComponent(Entity* targetEntity, std::string type);
+        static Component* getComponent(Entity* targetEntity, std::string type);
+        static std::vector<Component*> getComponents(std::string type);
+        static bool hasComponent(Entity* targetEntity, std::string type);
 
-        void addSystem(System* system);
-        void removeSystem(System* system);
-        std::vector<System*> getSystems();
+        static void addSystem(System* system);
+        static void removeSystem(System* system);
+        static std::vector<System*> getSystems();
 
         //void listen(Listener* listener);
         //void initEvent(Event event);
 
         void clean();
     private:
-        std::vector<Entity*> m_entities = {};
-        std::vector<System*> m_systems = {};
+        static std::vector<Entity*> m_entities;
+        static std::vector<System*> m_systems;
         //std::vector<Listener*> m_listeners = {};
-        int m_lastID = 0;
+        static int m_lastID;
 
-        int generateID();
+        static int generateID();
 
 };

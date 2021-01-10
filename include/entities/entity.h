@@ -10,7 +10,7 @@ class Entity{
         int getID();
     private:
         int m_id = -1;
-        std::vector<Component> m_components = {}; 
+        std::vector<Component*> m_components = {}; 
 
         void setID(int id);
 
