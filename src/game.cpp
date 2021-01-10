@@ -5,19 +5,22 @@
 #include "log.h"
 #include "definitions.h"
 #include "managers/windowManager.h"
+#include "managers/sceneManager.h"
+#include "scenes/menuScene.h"
 
 
 void Game::start(){
-
-    log << "\n Narvos has started \n";
-    if(DEBUG){warn << "Game started in debug mode\n";}
-    log << " Version: " << VERSION << "\n\n";
+    log << "\n Narvos has started \n ";
+    if(DEBUG){warn << "Game started in debug mode\n ";}
+    log << "Version: " << VERSION << "\n\n";
 
     if (!glfwInit()){
         err << "Failed to init GLFW\n";
         exit(-1);
     }
     WindowManager::createWindow(1280,720,"Narvos");
+
+    SceneManager::initScene(new MenuScene());
 
     while(!glfwWindowShouldClose(WindowManager::getWindow())){
         update();
@@ -27,9 +30,11 @@ void Game::start(){
 
 void Game::update(){
     glfwPollEvents();
+    SceneManager::getCurrentScene()->update();
 }
 
 void Game::render(){
     glClear(GL_COLOR_BUFFER_BIT);
+    SceneManager::getCurrentScene()->render();
     glfwSwapBuffers(WindowManager::getWindow());
 }
