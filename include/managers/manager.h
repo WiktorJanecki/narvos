@@ -27,7 +27,7 @@ class Manager{
         //void listen(Listener* listener);
         //void initEvent(Event event);
 
-        void clean();
+        static void clean();
     private:
         static std::vector<Entity*> m_entities;
         static std::vector<System*> m_systems;

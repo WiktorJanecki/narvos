@@ -1,8 +1,13 @@
 #pragma once
 
 #include "components/component.h"
+#include "math/vector.h"
 
-class TransformComponent : public Component{
-    public:
-        float x,y,z;
+struct TransformComponent : Component{
+
+    Vector2f position = Vector2f(0,0);
+    Vector2f scale = Vector2f(0,0);
+    float rotation = 0.f;
+
+        
 };
