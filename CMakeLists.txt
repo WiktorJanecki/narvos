@@ -21,8 +21,6 @@ target_link_libraries(narvos OpenGL::GL)
 find_package(GLEW REQUIRED)
 target_link_libraries(narvos GLEW::GLEW)
 
-find_package(glm REQUIRED)
-target_link_libraries(narvos glm)
 
 
 

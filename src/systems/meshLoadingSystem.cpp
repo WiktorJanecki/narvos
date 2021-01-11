@@ -3,7 +3,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "log.h"
 #include "components/meshComponent.h"
 #include "managers/manager.h"
 
@@ -11,8 +10,9 @@
 void MeshLoadingSystem::start(){
     for(auto&i : Manager::getComponents(Component::getType<MeshComponent>())){
         MeshComponent* component = (MeshComponent*)i;
+
         GLuint vaoID;   //generate vao for mesh object
-        glGenVertexArrays(4,&vaoID);
+        glGenVertexArrays(1,&vaoID);
         glBindVertexArray(vaoID);   //enable setting things into this vao
         m_vaos.push_back(vaoID);  
 
@@ -24,7 +24,7 @@ void MeshLoadingSystem::start(){
 
         storeDataInAttributeList(0,2,component->positions);     //generate vbo into this vao
         storeDataInAttributeList(1,2,component->textures);      //generate vbo into this vao
-        
+
         glBindVertexArray(0);   //disable setting things into this vao
 
         component->vaoID = vaoID;
@@ -39,7 +39,7 @@ void MeshLoadingSystem::render(){}
 
 MeshLoadingSystem::~MeshLoadingSystem(){
     for(const auto&i : m_vaos){
-        glDeleteVertexArrays(4,&i);
+        glDeleteVertexArrays(1,&i);
     }
     for(const auto&i : m_vbos){
         glDeleteBuffers(1,&i);

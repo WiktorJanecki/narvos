@@ -3,29 +3,26 @@
 #include "log.h"
 #include "managers/manager.h"
 #include "components/transformComponent.h"
+#include "components/meshComponent.h"
 #include "systems/meshLoadingSystem.h"
+#include "systems/renderingSystem.h"
 
 
 void MenuScene::start(){
     log<<"MenuScene has started \n";
-    // Entity* entity0 = new Entity();
-    // Entity* entity1 = new Entity();
-    // Manager::addEntity(entity0);
-    // Manager::addEntity(entity1);
+    Entity* entity0 = new Entity();
+    Manager::addEntity(entity0);
 
-    // TransformComponent* tc= new TransformComponent;
-    // TransformComponent* td= new TransformComponent;
-    // tc->x = 420;
-    // td->x = 68;
-    // Manager::addComponent(entity0,tc);
-    // Manager::addComponent(entity1,td);
+    MeshComponent* mc = new MeshComponent();
+    mc->positions = { 0,1,
+                      1,-1,
+                      -1,-1};
+    mc->indices = {0,1,2};
+    Manager::addComponent(entity0,mc);
 
-    // for(auto&i : Manager::getComponents(Component::getType<TransformComponent>())){
-    //     TransformComponent* test = (TransformComponent*)i;
-    //     log<<test->x<<"\n";
-    // }
     Manager::addSystem(new MeshLoadingSystem());
-
+    Manager::addSystem(new RenderingSystem());
+    
     for(const auto&i : Manager::getSystems()){
         i->start();
     }
