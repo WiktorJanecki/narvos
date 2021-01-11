@@ -10,14 +10,15 @@
 
 
 void Game::start(){
-    log << "\n Narvos has started \n ";
+    log << "\n Narvos has started \n ";                  //log starting game info
     if(DEBUG){warn << "Game started in debug mode\n ";}
     log << "Version: " << VERSION << "\n\n";
 
     if (!glfwInit()){
         err << "Failed to init GLFW\n";
         exit(-1);
-    }
+    }                                                    //end 
+
     WindowManager::createWindow(1280,720,"Narvos");
 
     SceneManager::initScene(new MenuScene());

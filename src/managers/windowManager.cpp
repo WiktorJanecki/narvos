@@ -1,5 +1,6 @@
 #include "managers/windowManager.h"
 
+#include "GL/glew.h"
 #include <GLFW/glfw3.h>
 #include <string>
 
@@ -11,6 +12,10 @@ GLFWwindow* WindowManager::createWindow(int width, int height, std::string title
     if(!m_window){
         err << "Failed to create a window !\n";
         glfwTerminate();
+        exit(-1);
+    }
+    if(glewInit() != GLEW_OK){
+        err << "Failed to initialize GLEW \n";
         exit(-1);
     }
     return m_window;
