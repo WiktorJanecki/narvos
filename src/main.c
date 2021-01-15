@@ -14,6 +14,8 @@ int main(){
     SDL_Window *window = SDL_CreateWindow("narvos",0,0,1280,720,0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
     SDL_Event event;
+    
+    unsigned int lastTime = 0, currentTime, fps = 0;
 
     Entity_t entity;
     TransformComponent_t transformComponent;
@@ -29,6 +31,14 @@ int main(){
                 SDL_Quit();
                 return 0;
             }
+        }
+
+        fps++;
+        currentTime = SDL_GetTicks();
+        if(currentTime > lastTime + 1000){
+            printf("FPS :%d\n",fps);
+            fps = 0;
+            lastTime = currentTime;
         }
     
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
