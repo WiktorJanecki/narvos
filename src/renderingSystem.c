@@ -13,12 +13,12 @@ void startRenderingSystem(Entity_t ent){
 }
 
 void renderRenderingSystem(Entity_t ent){
-    if(ent.components.textureComponent->texture&&ent.components.transformComponent){
+    if(ent.components.textureComponent->texture&&ent.components.transformComponent&&ent.components.rectComponent){
         SDL_Rect rect;
-        rect.x = ent.components.transformComponent->x;
-        rect.y = ent.components.transformComponent->y;
-        rect.w = 64;
-        rect.h = 64;
+        rect.x = ent.components.transformComponent->x + ent.components.rectComponent->x;
+        rect.y = ent.components.transformComponent->y + ent.components.rectComponent->y;
+        rect.w = ent.components.rectComponent->width;
+        rect.h = ent.components.rectComponent->height;
         SDL_RenderCopy(g_renderer,ent.components.textureComponent->texture,NULL,&rect);
     }
 }

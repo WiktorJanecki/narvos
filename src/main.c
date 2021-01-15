@@ -1,37 +1,49 @@
+#define VERSION "0y2v0"
+#define DEBUG 1
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "entity.h"
-#include "transformComponent.h"
 #include "systems.h"
+#include "log.h"
 
 int main(){
     if(SDL_Init(SDL_INIT_EVERYTHING)){
-        printf("Failed to init SDL2!");
+        SYS_err("Failed to init SDL2!\n");
         return 0;
     }
 
     int flags = IMG_INIT_JPG | IMG_INIT_PNG;
     if ((IMG_Init(flags) & flags) != flags) {
-        printf("Failed to init SDL2_image!\n");
-        printf("IMG_Init: %s\n", IMG_GetError());
+        SYS_err("Failed to init SDL2_image!\n");
+        SYS_err("IMG_Init: %s\n", IMG_GetError());
     }
 
     SDL_Window *window = SDL_CreateWindow("narvos",0,0,1280,720,0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
     SDL_Event event;
     
+    SYS_log("\n Narvos has started \n ");                  //log starting game info
+    if(DEBUG){SYS_warn("Game started in debug mode\n ");}
+    SYS_log("Version: %s\n\n",VERSION);
+
     unsigned int lastTime = 0, currentTime, fps = 0;
 
     Entity_t entity;
     TransformComponent_t transformComponent;
     transformComponent.x = 64;
-    transformComponent.y = 96;
+    transformComponent.y = 64;
     entity.components.transformComponent = &transformComponent;
     TextureComponent_t textureComponent;
     textureComponent.path = "res/textures/txt.png";
     entity.components.textureComponent = &textureComponent;
+    RectComponent_t rectComponent;
+    rectComponent.width = 512;
+    rectComponent.height = 512;
+    entity.components.rectComponent = &rectComponent;
     
     SYS_SetSystemsRenderer(renderer);
     SYS_StartSystems(entity);
