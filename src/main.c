@@ -23,7 +23,7 @@ int main(){
     transformComponent.y = 96;
     entity.components.transformComponent = &transformComponent;
     
-    setSystemsRenderer(renderer);
+    SYS_SetSystemsRenderer(renderer);
 
     while(1){
         while(SDL_PollEvent(&event)){
@@ -46,7 +46,7 @@ int main(){
     
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderClear(renderer);
-        updateSystems(entity);
+        SYS_RenderSystems(entity);
         SDL_RenderPresent(renderer);
     }
 }

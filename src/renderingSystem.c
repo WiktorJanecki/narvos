@@ -2,7 +2,7 @@
 
 SDL_Renderer* g_renderer;
 
-void updateRenderingSystem(Entity_t ent){
+void renderRenderingSystem(Entity_t ent){
     if(ent.components.transformComponent){
         SDL_Rect rect;
         rect.x = ent.components.transformComponent->x;
@@ -13,3 +13,5 @@ void updateRenderingSystem(Entity_t ent){
         SDL_RenderDrawRect(g_renderer,&rect);
     }
 }
+
+void updateRenderingSystem(Entity_t ent){}

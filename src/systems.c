@@ -1,9 +1,14 @@
 #include "systems.h"
 
-void setSystemsRenderer(SDL_Renderer* renderer){
+void SYS_SetSystemsRenderer(SDL_Renderer* renderer){
     g_renderer = renderer;
 }
 
-void updateSystems(Entity_t ent){
+void SYS_UpdateSystems(Entity_t ent){
     updateRenderingSystem(ent);
 }
+
+void SYS_RenderSystems(Entity_t ent){
+    renderRenderingSystem(ent);
+}
+void SYS_Free(){}

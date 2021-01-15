@@ -5,4 +5,6 @@
 #include "systems.h"
 
 void updateRenderingSystem(Entity_t);
+void renderRenderingSystem(Entity_t);
+
 
