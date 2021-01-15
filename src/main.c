@@ -27,10 +27,10 @@ int main(){
     Entity_t entity;
     TransformComponent_t transformComponent;
     transformComponent.x = 64;
-    transformComponent.y = 96;
+    transformComponent.y = 64;
     entity.components.transformComponent = &transformComponent;
     TextureComponent_t textureComponent;
-    textureComponent.path = "res/textures/txt.png";
+    textureComponent.path = (char*)"res/textures/txt.png";
     entity.components.textureComponent = &textureComponent;
     
     SYS_SetSystemsRenderer(renderer);
