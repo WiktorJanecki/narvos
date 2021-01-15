@@ -7,7 +7,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "entity.h"
-#include "transformComponent.h"
 #include "systems.h"
 #include "log.h"
 
@@ -41,6 +40,10 @@ int main(){
     TextureComponent_t textureComponent;
     textureComponent.path = "res/textures/txt.png";
     entity.components.textureComponent = &textureComponent;
+    RectComponent_t rectComponent;
+    rectComponent.width = 512;
+    rectComponent.height = 512;
+    entity.components.rectComponent = &rectComponent;
     
     SYS_SetSystemsRenderer(renderer);
     SYS_StartSystems(entity);
