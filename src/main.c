@@ -35,9 +35,9 @@ int main(){
 
         fps++;
         currentTime = SDL_GetTicks();
-        if(currentTime > lastTime + 1000){
+        if(currentTime > lastTime + 1000){ //do every second
             char buf[25];
-            snprintf(buf,25,"narvos    FPS: %d",fps);
+            snprintf(buf,25,"narvos    FPS: %d",fps); //append fps count to string
             SDL_SetWindowTitle(window,buf);
 
             fps = 0;
