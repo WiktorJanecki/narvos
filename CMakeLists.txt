@@ -5,22 +5,14 @@ project(narvos)
 set(EXECUTABLE_NAME "narvos")
 
 file(GLOB_RECURSE NARVOS_SRC
-    ${CMAKE_SOURCE_DIR}/src/*.cpp)
+    ${CMAKE_SOURCE_DIR}/src/*.c)
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/include)
 
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+
 add_executable(${EXECUTABLE_NAME} ${NARVOS_SRC})
-
-find_package(glfw3 3.3 REQUIRED)
-target_link_libraries(narvos glfw)
-
-find_package(OpenGL REQUIRED)
-target_link_libraries(narvos OpenGL::GL)
-
-find_package(GLEW REQUIRED)
-target_link_libraries(narvos GLEW::GLEW)
-
-
-
+target_link_libraries(${EXECUTABLE_NAME} ${SDL2_LIBRARIES})
 
