@@ -7,6 +7,8 @@
 extern SDL_Renderer* g_renderer;
 
 void SYS_SetSystemsRenderer(SDL_Renderer*);
+
+void SYS_StartSystems(Entity_t);
 void SYS_UpdateSystems(Entity_t);
 void SYS_RenderSystems(Entity_t);
 void SYS_Free();

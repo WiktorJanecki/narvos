@@ -20,10 +20,7 @@ int main(){
 
     SDL_Window *window = SDL_CreateWindow("narvos",0,0,1280,720,0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
-    SDL_Rect rect;
     SDL_Event event;
-    
-    SDL_Texture* texture = IMG_LoadTexture(renderer,"res/textures/txt.png");
     
     unsigned int lastTime = 0, currentTime, fps = 0;
 
@@ -32,12 +29,12 @@ int main(){
     transformComponent.x = 64;
     transformComponent.y = 96;
     entity.components.transformComponent = &transformComponent;
-    rect.x = 256;
-    rect.y = 128;
-    rect.w = 256;
-    rect.h = 256;
+    TextureComponent_t textureComponent;
+    textureComponent.path = "res/textures/txt.png";
+    entity.components.textureComponent = &textureComponent;
     
     SYS_SetSystemsRenderer(renderer);
+    SYS_StartSystems(entity);
 
     while(1){
         while(SDL_PollEvent(&event)){
@@ -57,11 +54,12 @@ int main(){
             fps = 0;
             lastTime = currentTime;
         }
+        SYS_UpdateSystems(entity);
     
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer,texture,NULL,&rect);
         SYS_RenderSystems(entity);
         SDL_RenderPresent(renderer);
     }
+    SYS_Free();
 }

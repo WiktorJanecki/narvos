@@ -4,6 +4,10 @@ void SYS_SetSystemsRenderer(SDL_Renderer* renderer){
     g_renderer = renderer;
 }
 
+void SYS_StartSystems(Entity_t ent){
+    startRenderingSystem(ent);
+}
+
 void SYS_UpdateSystems(Entity_t ent){
     updateRenderingSystem(ent);
 }
