@@ -30,7 +30,8 @@ int main(){
     if(DEBUG){SYS_warn("Game started in debug mode\n ");}
     SYS_log("Version: %s\n\n",VERSION);
 
-    unsigned int lastTime = 0, currentTime, fps = 0;
+    unsigned int dtLastTime = 0, fpsLastTime = 0, currentTime, fps = 0;
+    float dt = 0;
 
     Entity_t entity;
     TransformComponent_t transformComponent;
@@ -46,6 +47,7 @@ int main(){
     entity.components.rectComponent = &rectComponent;
     
     SYS_SetSystemsRenderer(renderer);
+    SYS_SetDeltaTime(&dt);
     SYS_StartSystems(entity);
 
     while(1){
@@ -58,14 +60,17 @@ int main(){
 
         fps++;
         currentTime = SDL_GetTicks();
-        if(currentTime > lastTime + 1000){ //do every second
+        if(currentTime > fpsLastTime + 1000){ //do every second
             char buf[25];
             snprintf(buf,25,"narvos    FPS: %d",fps); //append fps count to string
             SDL_SetWindowTitle(window,buf);
 
             fps = 0;
-            lastTime = currentTime;
+            fpsLastTime = currentTime;
         }
+        dt = (currentTime - dtLastTime) / 1000.f;
+        dtLastTime = currentTime;
+
         SYS_UpdateSystems(entity);
     
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
