@@ -36,7 +36,10 @@ int main(){
         fps++;
         currentTime = SDL_GetTicks();
         if(currentTime > lastTime + 1000){
-            printf("FPS :%d\n",fps);
+            char buf[25];
+            snprintf(buf,25,"narvos    FPS: %d",fps);
+            SDL_SetWindowTitle(window,buf);
+
             fps = 0;
             lastTime = currentTime;
         }
