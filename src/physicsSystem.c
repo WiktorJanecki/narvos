@@ -1,7 +1,7 @@
 #include "physicsSystem.h"
 
 #include "mathematica.h"
-
+#include "log.h"
 
 
 void startPhysicsSystem(Entity_t *ent){}

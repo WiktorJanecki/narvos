@@ -31,6 +31,7 @@ int main(){
     SYS_log("Version: %s\n\n",VERSION);
 
     unsigned int dtLastTime = 0, fpsLastTime = 0, currentTime, fps = 0;
+    bool keys[322];
     float dt = 0;
 
     Entity_t entity;
@@ -59,6 +60,14 @@ int main(){
             if(event.type == SDL_QUIT){
                 SDL_Quit();
                 return 0;
+            }
+            else if(event.type == SDL_KEYDOWN){
+                keys[event.key.keysym.sym] = true;    
+                SYS_SetKeyboardState(keys);
+            }
+            else if(event.type == SDL_KEYUP){
+                keys[event.key.keysym.sym] = false;
+                SYS_SetKeyboardState(keys);
             }
         }
 
