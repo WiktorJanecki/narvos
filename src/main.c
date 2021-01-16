@@ -35,8 +35,8 @@ int main(){
 
     Entity_t entity;
     TransformComponent_t transformComponent;
-    transformComponent.x = 64;
-    transformComponent.y = 64;
+    transformComponent.position.x = 64;
+    transformComponent.position.y = 64;
     entity.components.transformComponent = &transformComponent;
     TextureComponent_t textureComponent;
     textureComponent.path = "res/textures/txt.png";
@@ -45,10 +45,14 @@ int main(){
     rectComponent.width = 512;
     rectComponent.height = 512;
     entity.components.rectComponent = &rectComponent;
+    PhysicsComponent_t physicsComponent;
+    physicsComponent.velocity.x = 500;
+    physicsComponent.friction = 250;
+    entity.components.physicsComponent = &physicsComponent;
     
     SYS_SetSystemsRenderer(renderer);
     SYS_SetDeltaTime(&dt);
-    SYS_StartSystems(entity);
+    SYS_StartSystems(&entity);
 
     while(1){
         while(SDL_PollEvent(&event)){
@@ -68,14 +72,14 @@ int main(){
             fps = 0;
             fpsLastTime = currentTime;
         }
-        dt = (currentTime - dtLastTime) / 1000.f;
+        dt = (currentTime - dtLastTime)/1000.f;
         dtLastTime = currentTime;
 
-        SYS_UpdateSystems(entity);
+        SYS_UpdateSystems(&entity);
     
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderClear(renderer);
-        SYS_RenderSystems(entity);
+        SYS_RenderSystems(&entity);
         SDL_RenderPresent(renderer);
     }
     SYS_Free();
