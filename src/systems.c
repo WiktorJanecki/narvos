@@ -25,6 +25,7 @@ void SYS_StartSystems(Entity_t* ent){
 void SYS_UpdateSystems(Entity_t* ent){
     updateRenderingSystem(ent);
     updatePhysicsSystem(ent);
+    updateMovementSystem(ent);
 }
 
 void SYS_RenderSystems(Entity_t* ent){

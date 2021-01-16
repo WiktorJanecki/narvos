@@ -2,6 +2,7 @@
 
 #include "renderingSystem.h"
 #include "physicsSystem.h"
+#include "movementSystem.h"
 #include "entity.h"
 #include <SDL2/SDL.h>
 #include <stdbool.h>

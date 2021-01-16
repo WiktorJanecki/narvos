@@ -43,12 +43,10 @@ int main(){
     textureComponent.path = "res/textures/txt.png";
     entity.components.textureComponent = &textureComponent;
     RectComponent_t rectComponent;
-    rectComponent.width = 512;
-    rectComponent.height = 512;
+    rectComponent.width = 64;
+    rectComponent.height = 64;
     entity.components.rectComponent = &rectComponent;
     PhysicsComponent_t physicsComponent;
-    physicsComponent.velocity.x = 500;
-    physicsComponent.friction = 250;
     entity.components.physicsComponent = &physicsComponent;
     
     SYS_SetSystemsRenderer(renderer);
@@ -61,11 +59,11 @@ int main(){
                 SDL_Quit();
                 return 0;
             }
-            else if(event.type == SDL_KEYDOWN){
+            else if(event.type == SDL_KEYDOWN && event.key.keysym.sym < 322){ //some keys like caps lock are overfloting our keybuffer
                 keys[event.key.keysym.sym] = true;    
                 SYS_SetKeyboardState(keys);
             }
-            else if(event.type == SDL_KEYUP){
+            else if(event.type == SDL_KEYUP && event.key.keysym.sym < 322){
                 keys[event.key.keysym.sym] = false;
                 SYS_SetKeyboardState(keys);
             }
