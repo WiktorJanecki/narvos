@@ -32,9 +32,12 @@ int main(){
 
     unsigned int dtLastTime = 0, fpsLastTime = 0, currentTime, fps = 0;
     bool keys[322];
+    for(int i = 0; i < 322;i++){
+        keys[i] = false;
+    }
     float dt = 0;
 
-    Entity_t* entities[2];
+    Entity_t* entities = (Entity_t*)malloc(2*sizeof(Entity_t));
     Entity_t entity;
     TransformComponent_t transformComponent;
     transformComponent.position.x = 64;
@@ -48,9 +51,13 @@ int main(){
     rectComponent.height = 64;
     entity.components.rectComponent = &rectComponent;
     PhysicsComponent_t physicsComponent;
+    physicsComponent.acceleration.x = 0;
+    physicsComponent.acceleration.y = 0;
+    physicsComponent.velocity.x = 0;
+    physicsComponent.velocity.y = 0;
     entity.components.physicsComponent = &physicsComponent;
     entity.flags = ENT_IS_PLAYER;
-    entities[0] = &entity;
+    entities[0] = entity;
 
     Entity_t wall;
     TransformComponent_t transformComponent2;
@@ -65,14 +72,18 @@ int main(){
     rectComponent2.height = 64;
     wall.components.rectComponent = &rectComponent2;
     PhysicsComponent_t physicsComponent2;
+    physicsComponent2.acceleration.x = 0;
+    physicsComponent2.acceleration.y = 0;
+    physicsComponent2.velocity.x = 0;
+    physicsComponent2.velocity.y = 0;
     wall.components.physicsComponent = &physicsComponent2;
-    entities[1] = &wall;
+    entities[1] = wall;
 
     
     SYS_SetSystemsRenderer(renderer);
     SYS_SetDeltaTime(&dt);
-    for(int i = 0; i < sizeof(entities)/sizeof(entities[0]); i++){
-        SYS_StartSystems(entities[i]);
+    for(int i = 0; i < 2; i++){
+        SYS_StartSystems(&entities[i]);
     }
 
     while(1){
@@ -104,14 +115,14 @@ int main(){
         dt = (currentTime - dtLastTime)/1000.f;
         dtLastTime = currentTime;
 
-        for(int i = 0; i < sizeof(entities)/sizeof(entities[0]); i++){
-            SYS_UpdateSystems(entities[i]);
+        for(int i = 0; i < 2; i++){
+            SYS_UpdateSystems(&entities[i]);
         }
     
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderClear(renderer);
-        for(int i = 0; i < sizeof(entities)/sizeof(entities[0]); i++){
-            SYS_RenderSystems(entities[i]);
+        for(int i = 0; i < 2; i++){
+            SYS_RenderSystems(&entities[i]);
         }
         SDL_RenderPresent(renderer);
     }
