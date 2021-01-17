@@ -34,6 +34,7 @@ int main(){
     bool keys[322];
     float dt = 0;
 
+    Entity_t* entities[2];
     Entity_t entity;
     TransformComponent_t transformComponent;
     transformComponent.position.x = 64;
@@ -49,6 +50,7 @@ int main(){
     PhysicsComponent_t physicsComponent;
     entity.components.physicsComponent = &physicsComponent;
     entity.flags = entity.flags | ENT_IS_PLAYER;
+    entities[0] = &entity;
 
     Entity_t wall;
     TransformComponent_t transformComponent2;
@@ -64,12 +66,14 @@ int main(){
     wall.components.rectComponent = &rectComponent2;
     PhysicsComponent_t physicsComponent2;
     wall.components.physicsComponent = &physicsComponent2;
+    entities[1] = &wall;
 
     
     SYS_SetSystemsRenderer(renderer);
     SYS_SetDeltaTime(&dt);
-    SYS_StartSystems(&entity);
-    SYS_StartSystems(&wall);
+    for(int i = 0; i < 2; i++){
+        SYS_StartSystems(entities[i]);
+    }
 
     while(1){
         while(SDL_PollEvent(&event)){
@@ -100,13 +104,15 @@ int main(){
         dt = (currentTime - dtLastTime)/1000.f;
         dtLastTime = currentTime;
 
-        SYS_UpdateSystems(&entity);
-        SYS_UpdateSystems(&wall);
+        for(int i = 0; i < 2; i++){
+            SYS_UpdateSystems(entities[i]);
+        }
     
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderClear(renderer);
-        SYS_RenderSystems(&entity);
-        SYS_RenderSystems(&wall);
+        for(int i = 0; i < 2; i++){
+            SYS_RenderSystems(entities[i]);
+        }
         SDL_RenderPresent(renderer);
     }
     SYS_Free();

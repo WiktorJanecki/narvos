@@ -27,6 +27,14 @@ void updateMovementSystem(Entity_t *ent){
         if(g_keyboardState[SDLK_d]){
             movementForce.x = MOVEMENT_SPEED;
         }
+        /*if(test collizj xy){
+
+        }
+        else{
+            movementForce.x = 0;
+            movementForce.y = 0;
+        }
+        */
         ent->components.physicsComponent->velocity.x += movementForce.x;
         ent->components.physicsComponent->velocity.y += movementForce.y;
         if(vel->x > 0){
