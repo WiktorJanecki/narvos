@@ -78,6 +78,7 @@ int main(){
     physicsComponent2.velocity.x = 0;
     physicsComponent2.velocity.y = 0;
     wall.components.physicsComponent = &physicsComponent2;
+    wall.flags = ENT_IS_COLLIDING;
     entities[1] = wall;
 
     Entity_t wall1;
@@ -98,6 +99,7 @@ int main(){
     physicsComponent3.velocity.x = 0;
     physicsComponent3.velocity.y = 0;
     wall1.components.physicsComponent = &physicsComponent3;
+    wall1.flags = ENT_IS_COLLIDING;
     entities[2] = wall1;
 
     SYS_SetSystemsRenderer(renderer);

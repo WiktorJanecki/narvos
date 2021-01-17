@@ -44,7 +44,7 @@ void updatePhysicsSystem(Entity_t* ent){
 
             for(unsigned int i = 0; i < g_entities_length;i++){
                 Entity_t* col = &g_entities[i];
-                if(col->components.rectComponent&&col->components.transformComponent&&!(col->flags & ENT_IS_PLAYER)){
+                if(col->components.rectComponent&&col->components.transformComponent&&!(col->flags & ENT_IS_PLAYER) && col->flags & ENT_IS_COLLIDING){
                     float colX = col->components.transformComponent->position.x;
                     float colY = col->components.transformComponent->position.y;
                     float colW = col->components.rectComponent->width;
