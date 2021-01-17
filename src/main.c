@@ -37,12 +37,12 @@ int main(){
     }
     float dt = 0;
 
-    unsigned int entities_length = 2;
+    unsigned int entities_length = 3;
     Entity_t* entities = (Entity_t*)malloc(entities_length*sizeof(Entity_t));
     Entity_t entity;
     TransformComponent_t transformComponent;
-    transformComponent.position.x = 64;
-    transformComponent.position.y = 64;
+    transformComponent.position.x = 0;
+    transformComponent.position.y = 0;
     entity.components.transformComponent = &transformComponent;
     TextureComponent_t textureComponent;
     textureComponent.path = "res/textures/txt.png";
@@ -62,15 +62,15 @@ int main(){
 
     Entity_t wall;
     TransformComponent_t transformComponent2;
-    transformComponent2.position.x = 128;
-    transformComponent2.position.y = 64;
+    transformComponent2.position.x = 640;
+    transformComponent2.position.y = 256;
     wall.components.transformComponent = &transformComponent2;
     TextureComponent_t textureComponent2;
     textureComponent2.path = "res/textures/txt.png";
     wall.components.textureComponent = &textureComponent2;
     RectComponent_t rectComponent2;
-    rectComponent2.width = 64;
-    rectComponent2.height = 64;
+    rectComponent2.width = 256;
+    rectComponent2.height = 256;
     wall.components.rectComponent = &rectComponent2;
     PhysicsComponent_t physicsComponent2;
     physicsComponent2.acceleration.x = 0;
@@ -80,7 +80,26 @@ int main(){
     wall.components.physicsComponent = &physicsComponent2;
     entities[1] = wall;
 
-    
+    Entity_t wall1;
+    TransformComponent_t transformComponent3;
+    transformComponent3.position.x = 128;
+    transformComponent3.position.y = 64;
+    wall1.components.transformComponent = &transformComponent3;
+    TextureComponent_t textureComponent3;
+    textureComponent3.path = "res/textures/txt.png";
+    wall1.components.textureComponent = &textureComponent3;
+    RectComponent_t rectComponent3;
+    rectComponent3.width = 512;
+    rectComponent3.height = 512;
+    wall1.components.rectComponent = &rectComponent3;
+    PhysicsComponent_t physicsComponent3;
+    physicsComponent3.acceleration.x = 0;
+    physicsComponent3.acceleration.y = 0;
+    physicsComponent3.velocity.x = 0;
+    physicsComponent3.velocity.y = 0;
+    wall1.components.physicsComponent = &physicsComponent3;
+    entities[2] = wall1;
+
     SYS_SetSystemsRenderer(renderer);
     SYS_SetDeltaTime(&dt);
     SYS_SetEntities(entities,entities_length);
