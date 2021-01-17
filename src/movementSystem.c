@@ -1,5 +1,6 @@
 #include "movementSystem.h"
 #include "mathematica.h"
+#include "log.h"
 
 #define MOVEMENT_SPEED 250
 #define MOVEMENT_FRICTION 1000
@@ -27,14 +28,6 @@ void updateMovementSystem(Entity_t *ent){
         if(g_keyboardState[SDLK_d]){
             movementForce.x = MOVEMENT_SPEED;
         }
-        /*if(test collizj xy){
-
-        }
-        else{
-            movementForce.x = 0;
-            movementForce.y = 0;
-        }
-        */
         ent->components.physicsComponent->velocity.x += movementForce.x;
         ent->components.physicsComponent->velocity.y += movementForce.y;
         if(vel->x > 0){

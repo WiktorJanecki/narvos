@@ -83,6 +83,7 @@ int main(){
     
     SYS_SetSystemsRenderer(renderer);
     SYS_SetDeltaTime(&dt);
+    SYS_SetEntities(entities,entities_length);
     for(unsigned int i = 0; i < entities_length; i++){
         SYS_StartSystems(&entities[i]);
     }
