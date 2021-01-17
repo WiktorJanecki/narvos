@@ -1,7 +1,7 @@
 #pragma once
 
-typedef struct{
-    float x;
-    float y;
+#include "mathematica.h"
 
+typedef struct{
+    Vector2f_t position;
 } TransformComponent_t;
