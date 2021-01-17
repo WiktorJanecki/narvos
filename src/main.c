@@ -31,13 +31,14 @@ int main(){
     SYS_log("Version: %s\n\n",VERSION);
 
     unsigned int dtLastTime = 0, fpsLastTime = 0, currentTime, fps = 0;
-    bool keys[322];
+    bool keys[322]; //uninitialized will be randomly wtf..just initialize
     for(int i = 0; i < 322;i++){
         keys[i] = false;
     }
     float dt = 0;
 
-    Entity_t* entities = (Entity_t*)malloc(2*sizeof(Entity_t));
+    unsigned int entities_length = 2;
+    Entity_t* entities = (Entity_t*)malloc(entities_length*sizeof(Entity_t));
     Entity_t entity;
     TransformComponent_t transformComponent;
     transformComponent.position.x = 64;
@@ -51,7 +52,7 @@ int main(){
     rectComponent.height = 64;
     entity.components.rectComponent = &rectComponent;
     PhysicsComponent_t physicsComponent;
-    physicsComponent.acceleration.x = 0;
+    physicsComponent.acceleration.x = 0; //if uninitialized are like -532847e10
     physicsComponent.acceleration.y = 0;
     physicsComponent.velocity.x = 0;
     physicsComponent.velocity.y = 0;
@@ -82,7 +83,7 @@ int main(){
     
     SYS_SetSystemsRenderer(renderer);
     SYS_SetDeltaTime(&dt);
-    for(int i = 0; i < 2; i++){
+    for(unsigned int i = 0; i < entities_length; i++){
         SYS_StartSystems(&entities[i]);
     }
 
@@ -115,16 +116,17 @@ int main(){
         dt = (currentTime - dtLastTime)/1000.f;
         dtLastTime = currentTime;
 
-        for(int i = 0; i < 2; i++){
+        for(unsigned int i = 0; i < entities_length; i++){
             SYS_UpdateSystems(&entities[i]);
         }
     
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderClear(renderer);
-        for(int i = 0; i < 2; i++){
+        for(unsigned int i = 0; i < entities_length; i++){
             SYS_RenderSystems(&entities[i]);
         }
         SDL_RenderPresent(renderer);
     }
     SYS_Free();
+    free(entities);
 }
