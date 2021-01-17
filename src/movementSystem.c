@@ -7,7 +7,7 @@
 Vector2f_t g_LastMovementForce;
 
 void updateMovementSystem(Entity_t *ent){
-    if(ent->components.physicsComponent){
+    if(ent->components.physicsComponent && ent->flags & ENT_IS_PLAYER){
         ent->components.physicsComponent->friction = 0;
         ent->components.physicsComponent->velocity.x -= g_LastMovementForce.x;
         ent->components.physicsComponent->velocity.y -= g_LastMovementForce.y;

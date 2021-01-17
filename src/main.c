@@ -48,10 +48,28 @@ int main(){
     entity.components.rectComponent = &rectComponent;
     PhysicsComponent_t physicsComponent;
     entity.components.physicsComponent = &physicsComponent;
+    entity.flags = entity.flags | ENT_IS_PLAYER;
+
+    Entity_t wall;
+    TransformComponent_t transformComponent2;
+    transformComponent2.position.x = 64;
+    transformComponent2.position.y = 64;
+    wall.components.transformComponent = &transformComponent2;
+    TextureComponent_t textureComponent2;
+    textureComponent2.path = "res/textures/txt.png";
+    wall.components.textureComponent = &textureComponent2;
+    RectComponent_t rectComponent2;
+    rectComponent2.width = 64;
+    rectComponent2.height = 64;
+    wall.components.rectComponent = &rectComponent2;
+    PhysicsComponent_t physicsComponent2;
+    wall.components.physicsComponent = &physicsComponent2;
+
     
     SYS_SetSystemsRenderer(renderer);
     SYS_SetDeltaTime(&dt);
     SYS_StartSystems(&entity);
+    SYS_StartSystems(&wall);
 
     while(1){
         while(SDL_PollEvent(&event)){
@@ -83,10 +101,12 @@ int main(){
         dtLastTime = currentTime;
 
         SYS_UpdateSystems(&entity);
+        SYS_UpdateSystems(&wall);
     
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderClear(renderer);
         SYS_RenderSystems(&entity);
+        SYS_RenderSystems(&wall);
         SDL_RenderPresent(renderer);
     }
     SYS_Free();
