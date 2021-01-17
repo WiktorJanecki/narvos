@@ -9,5 +9,5 @@ enum {
 
 typedef struct{
     Components_t components;
-    unsigned int flags;
+    int flags;
 } Entity_t;

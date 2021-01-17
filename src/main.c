@@ -49,12 +49,12 @@ int main(){
     entity.components.rectComponent = &rectComponent;
     PhysicsComponent_t physicsComponent;
     entity.components.physicsComponent = &physicsComponent;
-    entity.flags = entity.flags | ENT_IS_PLAYER;
+    entity.flags = ENT_IS_PLAYER;
     entities[0] = &entity;
 
     Entity_t wall;
     TransformComponent_t transformComponent2;
-    transformComponent2.position.x = 64;
+    transformComponent2.position.x = 128;
     transformComponent2.position.y = 64;
     wall.components.transformComponent = &transformComponent2;
     TextureComponent_t textureComponent2;
@@ -71,7 +71,7 @@ int main(){
     
     SYS_SetSystemsRenderer(renderer);
     SYS_SetDeltaTime(&dt);
-    for(int i = 0; i < 2; i++){
+    for(int i = 0; i < sizeof(entities)/sizeof(entities[0]); i++){
         SYS_StartSystems(entities[i]);
     }
 
@@ -104,13 +104,13 @@ int main(){
         dt = (currentTime - dtLastTime)/1000.f;
         dtLastTime = currentTime;
 
-        for(int i = 0; i < 2; i++){
+        for(int i = 0; i < sizeof(entities)/sizeof(entities[0]); i++){
             SYS_UpdateSystems(entities[i]);
         }
     
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderClear(renderer);
-        for(int i = 0; i < 2; i++){
+        for(int i = 0; i < sizeof(entities)/sizeof(entities[0]); i++){
             SYS_RenderSystems(entities[i]);
         }
         SDL_RenderPresent(renderer);
